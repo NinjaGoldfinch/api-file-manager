@@ -9,11 +9,11 @@ Websocket: `file_upload_ws.py` - Uses websockets pip module\
 ## Docker
 Recommened deployment with volumes setup to allow for isolated file management\
 `docker build . -t "File-manager"`\
-`docker run -d --name "api-file-manager" "File-manager"`\
+`docker run -d --name "api-file-manager" "File-manager"`
 
 ## Python (Not recommended)
-Can also be deployed using Python **(ENV recommened!)**\
+Can also be deployed using Python **(ENV recommened!)**
 `python3 -m venv .venv`\
 `source .venv/bin/activate`\
 `pip3 install -r requirements.txt`\
-`python3 -u main.py`\
+`python3 -u main.py`

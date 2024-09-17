@@ -1,5 +1,5 @@
 # API File manager
-A simple file manager that supports HTTPS and websocket connections to interact with a server's filesytem
+A simple file manager that supports HTTPS and websocket connections to interact with a server's filesytem. This is a super simple file-system manager, and has no complex features like read / write locks etc. Most likely will be archived soon.
 
 # Usage
 Best way to implement into an existing project is to download:\

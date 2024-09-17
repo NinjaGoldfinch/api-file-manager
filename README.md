@@ -4,7 +4,7 @@ A simple file manager that supports HTTPS and websocket connections to interact 
 # Usage
 Best way to implement into an existing project is to download:\
 HTTPS: `file_upload_manager.py` - Uses requests  pip module\
-Websocket: `file_upload_ws.py` - Uses websockets pip module\
+Websocket: `file_upload_ws.py` - Uses websockets pip module
 
 ## Docker
 Recommened deployment with volumes setup to allow for isolated file management\

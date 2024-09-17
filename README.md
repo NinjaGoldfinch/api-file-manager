@@ -9,7 +9,11 @@ Websocket: `file_upload_ws.py` - Uses websockets pip module
 ## Docker
 Recommened deployment with volumes setup to allow for isolated file management\
 `docker build . -t "file-manager"`\
-`docker run -d --name "api-file-manager" "file-manager"`
+`docker run -d -p 8000:8000 --name "api-file-manager" "file-manager"`\
+
+Also recommended to implement a volume for data retention:\
+`docker volume create "API-data"`
+`docker run -d -p 8000:8000 -v "API-data":/files --name "api-file-manager" "file-manager"`
 
 ## Python (Not recommended)
 Can also be deployed using Python **(ENV recommened!)**\

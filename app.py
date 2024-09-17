@@ -19,6 +19,14 @@ else:
 
 # Route functions
 
+# TODO: Add permissions to routes (using API keys) to allow for creation of directories, deletion of files, etc.
+# Also assign different permissions to different API keys, which allows each service to access different files / directories
+# And prevents certain services from deleting / creating files etc.
+
+# LATER: Also allow for access to an SQL database, which will allow for easier data management and querying
+# This will speed up the process of finding files, and allow for more complex queries to be run on the data
+# Might archive this repository and create a new one for the SQL database, as it will be a vastly different project
+
 async def get_files(request):
     directory = BASE_DIR
     
@@ -47,6 +55,16 @@ async def send_file(request):
     files_written = await upload_file(form, BASE_DIR)
 
     return JSONResponse({'success': True, 'files_written': files_written})
+
+async def delete_file(request):
+    filenames = request.query_params.getlist('filenames')
+    
+    removed_files = remove_file(BASE_DIR, filenames)
+    
+    if 'error' in removed_files:
+        return JSONResponse(removed_files, status_code=400)
+    
+    return JSONResponse(removed_files)
 
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
@@ -117,10 +135,12 @@ async def websocket_endpoint(websocket: WebSocket):
     except Exception as e:
         print(f"An error occurred: {e}")
         await websocket.send_json({'error': 'An error occurred'})
+
 routes = [
     Route('/files', get_files),
     Route('/files/{filename}', get_file),
     Route('/upload', send_file, methods=['POST']),
+    Route('/delete', delete_file, methods=['DELETE']),
     WebSocketRoute('/ws', websocket_endpoint)
 ]
 

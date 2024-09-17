@@ -27,8 +27,6 @@ def download_file(file_path):
     return {'error': 'File not found'}
 
 async def upload_file(file_content, directory):
-    
-    
     print(f"Received {len(file_content)} files")
     files_written = []
     
@@ -43,3 +41,28 @@ async def upload_file(file_content, directory):
             files_written.append(filename)
             
     return files_written
+
+def remove_file(directory, filenames):
+    if not filenames:
+        return {'error': 'No filenames provided'}
+    
+    deleted_files = []
+    errors = []
+    
+    for filename in filenames:
+        file_path = os.path.join(directory, filename)
+        
+        if not os.path.exists(file_path):
+            errors.append({'filename': filename, 'error': 'File not found'})
+            continue
+        
+        try:
+            if os.path.isdir(file_path):
+                os.rmdir(file_path)
+            else:
+                os.remove(file_path)
+            deleted_files.append(filename)
+        except Exception as e:
+            errors.append({'filename': filename, 'error': str(e)})
+    
+    return {'success': True, 'deleted': deleted_files, 'errors': errors}
